@@ -3,22 +3,36 @@
     <head>
         <!-- Page Title -->
         <title>Shohei Miyuki (昌平ミユキ)</title>
+
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="../favicon/miyuki/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="../favicon/miyuki/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="../favicon/miyuki/favicon-16x16.png">
         <link rel="manifest" href="../favicon/miyuki/site.webmanifest">
+
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="../style.css" media="screen" />
     </head>
     <body>
+        <!-- Page Loader -->
+        <div id="preloader"></div>
 
-    <h1>Shohei Miyuki (昌平ミユキ)</h1>
+        <h1>Shohei Miyuki (昌平ミユキ)</h1>
 
-    <p>test</p>
+        <p>test</p>
 
-    <!-- back button -->
-    <p>
-    <button onclick="document.location='../utau.html'">Go Back</button>
-    </p>
+        <!-- Back Button -->
+        <p>
+            <button onclick="document.location='../utau.html'">Go Back</button>
+        </p>
 
+        <!-- Show page after loading -->
+        <script>
+            var s = document.getElementById("preloader").style;
+            s.opacity = 1;
+            (function fade() {
+                (s.opacity -= 0.1) < 0 ? (s.display = "none") : setTimeout(fade, 40);
+            })();
+        </script>
     </body>
 </html>

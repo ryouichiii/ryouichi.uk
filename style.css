@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    background-color: #daffc2;
+    background-image: url(./images/bg.webp) ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #25767c;
+    overflow-x: hidden;
+}
+
+/* Page Loader */
+#preloader{
+    background: #000 url(images/load.gif) no-repeat center;
+    align-items: center;
+    justify-content: center;
+    background-size: 10%;
+    height: 100vh;
+    width: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    position: fixed;
+    z-index: 9999;
+}
