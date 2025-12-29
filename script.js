@@ -6,6 +6,7 @@ const yearElement = document.getElementById('year');
 const themeToggle = document.getElementById('themeToggle');
 const currentTheme = localStorage.getItem('theme');
 const body = document.body;
+const savedSidebar = localStorage.getItem('sidebarClosed');
 
 /* Grab current year */
 yearElement.textContent = currentYear;
@@ -25,6 +26,12 @@ if (currentTheme) {
     body.classList.add(currentTheme);
 }
 
+/* Apply saved sidebar state on desktop */
+if (savedSidebar === 'true' && !(window.matchMedia && window.matchMedia('(max-width:800px)').matches)) {
+    sidebar.classList.add('close');
+    toggleButton.classList.add('rotate');
+}
+
 /* Sidebar toggle function */
 function toggleSidebar() {
     /* Toggle animation */
@@ -35,6 +42,8 @@ function toggleSidebar() {
 
     /* Close open submenus when closing sidebar */
     closeAllSubMenus()
+    /* Persist sidebar state */
+    localStorage.setItem('sidebarClosed', sidebar.classList.contains('close') ? 'true' : 'false');
 }
 /* Dropdown function */
 function toggleSubMenu(button) {
@@ -54,6 +63,8 @@ function toggleSubMenu(button) {
             void sidebar.offsetWidth
             sidebar.classList.toggle('close')
             toggleButton.classList.toggle('rotate')
+            /* Persist sidebar state when opening via dropdown */
+            localStorage.setItem('sidebarClosed', sidebar.classList.contains('close') ? 'true' : 'false');
         }
     }
 }
@@ -71,6 +82,19 @@ function handleMobileChange(e) {
         toggleButton.classList.remove('rotate');
         /* Closes dropdown */
         closeAllSubMenus()
+        /* Clear persisted closed state on mobile */
+        localStorage.setItem('sidebarClosed', 'false');
+        return;
+    } else {
+        /* When returning to desktop, reapply saved state */
+        const saved = localStorage.getItem('sidebarClosed');
+        if (saved === 'true') {
+            sidebar.classList.add('close');
+            toggleButton.classList.add('rotate');
+        } else {
+            sidebar.classList.remove('close');
+            toggleButton.classList.remove('rotate');
+        }
     }
 }
 if (mobileMq.addEventListener) mobileMq.addEventListener('change', handleMobileChange);
