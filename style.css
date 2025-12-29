@@ -1,13 +1,13 @@
 :root {
-    /* Colours */
-    --text: #0e373e;
+    /* Light mode colours */
+    --text: #1f5151;
     --background: #feffeb;
     --colour1: #d5edab;
     --colour2: #66cc86;
-    --colour3: #1f5151;
+    --colour3: #3d8567;
     --shadow: #1f515141;
 
-    /* Background */
+    /* Apply Background */
     background-image: url(./images/bg.webp);
     background-color: var(--background);
     background-size: cover;
@@ -34,9 +34,12 @@ body {
     grid-template-columns: auto 1fr;
 }
 
-/* Section padding */
+/* Main alignment */
 main {
     padding: min(30px, 7%);
+    margin: 0 auto;
+    box-sizing: border-box;
+    max-width: 1200px;
 }
 
 /* Paragraph margins */
@@ -44,6 +47,13 @@ main p {
     color: var(--colour3);
     margin-top: 5px;
     margin-bottom: 15px;
+}
+
+/* Text break style */
+hr {
+    height:2px;
+    border-width: 0;
+    background-color: var(--colour3);
 }
 
 /* Standard container */
@@ -57,6 +67,40 @@ main p {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/* Dark mode toggle */
+.dark-mode {
+    color-scheme: dark;
+    --text: #feffeb;
+    --background: #1f2e2e;
+    --colour1: #1f5151;
+    --colour2: #66cc86;
+    --colour3: #d5edab;
+    --shadow: #d5edab80;
+    background-image: url(./images/bg-dark.webp);
+    background-color: var(--background);
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Styles for the sun and moon icons */
+.sun-icon, .moon-icon {
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.3s;
+}
+/* Hide moon icon by default */
+.moon-icon {
+    display: none;
+}
+/* Swap icon in dark mode */
+.dark-mode .sun-icon {
+    display: none;
+}
+.dark-mode .moon-icon {
+    display: inline-block;
 }
 
 /* ===== SIDEBAR ===== */
@@ -100,31 +144,17 @@ main p {
 #sidebar ul li.active a {
     color: var(--colour2);
     svg {
-        fill: var(--colour2)
+        fill: var(--colour2);
     }
 }
 #sidebar ul li div.active a {
     color: var(--colour2);
     svg {
-        fill: var(--colour2)
+        fill: var(--colour2);
     }
 }
-/* Credit Text */
-#sidebar ul li span.credit {
-    display: block;
-    position: absolute;
-    bottom: 12px;
-    left: 1em;
-    right: 1em;
-    text-align: center;
-    color: var(--colour3);
-}
-/* Hide credit when closed */
-#sidebar.close ul li span.credit {
-    display: none;
-}
 /* Sidebar content formatting */
-#sidebar a, #sidebar .dropdown-button, #sidebar .logo {
+#sidebar a, #sidebar .dropdown-button, #sidebar .logo, #sidebar .theme-toggle {
     border-radius: .5em;
     padding: .85em;
     text-decoration: none;
@@ -133,8 +163,8 @@ main p {
     align-items: center;
     gap: 1em;
 }
-/* Dropdown Style */
-.dropdown-button {
+/* Dropdown + Theme toggle Style */
+.dropdown-button, .theme-toggle {
     width: auto;
     text-align: left;
     background: none;
@@ -161,11 +191,11 @@ main p {
 /* Colour button SVGs */
 #sidebar svg {
     flex-shrink: 0;
-    fill: var(--colour3)
+    fill: var(--colour3);
 }
 /* Change colour on hover */
-#sidebar a:hover, #sidebar .dropdown-button:hover {
-    background-color: var(--colour1)
+#sidebar a:hover, #sidebar .dropdown-button:hover, #sidebar .theme-toggle:hover, #toggle-button:hover{
+    background-color: var(--colour1);
 }
 /* Hide dropdown contents by default */
 #sidebar .sub-menu {
@@ -205,19 +235,39 @@ main p {
         transition: rotate 150ms ease;
     }
 }
-#toggle-button:hover {
-    background-color: var(--colour1);
-}
-
 /* Toggle animation */
 #sidebar.animate {
     transition: width 300ms ease-in-out;
+}
+/* Sidebar footer (hr + theme toggle + credit) */
+#sidebar .sidebar-footer {
+    position: absolute;
+    bottom: 12px;
+}
+#sidebar .sidebar-footer hr {
+    margin: 0 0 .5em 0;
+    border: none;
+    height: 2px;
+    background: var(--colour3);
+}
+#sidebar .sidebar-footer .footer-row {
+    display: flex;
+    align-items: center;
+    gap: 4em;
+    justify-content: flex-end;
+}
+#sidebar .sidebar-footer .footer-row .credit {
+    color: var(--colour3);
+}
+/* Hide the credit text and <hr> when collapsed */
+#sidebar.close .sidebar-footer .credit, #sidebar.close .sidebar-footer hr {
+    display: none;
 }
 /* ===== SIDEBAR END ===== */
 
 /* Page Loader */
 #preloader {
-    background: var(--colour3) url(images/load.gif) no-repeat center;
+    background: var(--colour1) url(images/load.gif) no-repeat center;
     align-items: center;
     justify-content: center;
     background-size: 10%;
@@ -237,6 +287,7 @@ main p {
     }
     main {
         padding: 2em 1em 60pc 1em;
+        max-width: auto;
     }
     main p {
         margin-left: 40px;
@@ -256,31 +307,56 @@ main p {
         position: fixed;
         top: unset;
         bottom: 0;
+        
+        /* Hide sidebar break */
+        hr {
+            display: none;
+        }
 
-        /* Align icons side-by-side */
+        /* Remove desktop footer for mobile */
+        .sidebar-footer {
+            position: static;
+            left: auto;
+            right: auto;
+            bottom: auto;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar-footer .footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            height: 100%;
+        }
+
+        /* Align icons side-by-side and center them */
         > ul {
             padding: 0;
             display: grid;
             grid-auto-columns: 60px;
             grid-auto-flow: column;
             align-items: center;
-            overflow-x: scroll;
+            justify-content: center;
+            overflow-x: auto;
         }
-        /* Align icons horizontally */
+        /* Align icons horizontally and center */
         ul li {
             height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         /* Makes boxes square and removes padding */
-        ul a, ul .dropdown-button {
+        ul a, ul .theme-toggle {
             width: 60px;
             height: 60px;
             padding: 0;
             border-radius: 0;
             justify-content: center;
         }
-
-        /* Removes logo, text and credit (no idea where the dropdown goes i gave up looking)*/
-        ul li span, ul li:first-child, ul li span.credit{
+        /* Removes logo, text, credit and dropdown (dropdown button was mean to me)*/
+        ul li span, ul li:first-child, ul .dropdown-button {
             display: none;
         }
     }

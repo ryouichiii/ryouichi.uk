@@ -1,13 +1,31 @@
-const toggleButton = document.getElementById('toggle-button')
-const sidebar = document.getElementById('sidebar')
+const toggleButton = document.getElementById('toggle-button');
+const sidebar = document.getElementById('sidebar');
 const mobileMq = window.matchMedia('(max-width:800px)');
 const currentYear = new Date().getFullYear();
 const yearElement = document.getElementById('year');
+const themeToggle = document.getElementById('themeToggle');
+const currentTheme = localStorage.getItem('theme');
+const body = document.body;
 
 /* Grab current year */
 yearElement.textContent = currentYear;
 
-/* Toggle function */
+/* Add listener for theme toggle */
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    /* Save theme prefs */
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark-mode');
+    } else {
+        localStorage.setItem('theme', '');
+    }
+});
+/* Check for locally saved theme preference */
+if (currentTheme) {
+    body.classList.add(currentTheme);
+}
+
+/* Sidebar toggle function */
 function toggleSidebar() {
     /* Toggle animation */
     sidebar.classList.add('animate')
@@ -18,7 +36,6 @@ function toggleSidebar() {
     /* Close open submenus when closing sidebar */
     closeAllSubMenus()
 }
-
 /* Dropdown function */
 function toggleSubMenu(button) {
 
@@ -40,7 +57,6 @@ function toggleSubMenu(button) {
         }
     }
 }
-
 /* Close menu function */
 function closeAllSubMenus() {
     Array.from(sidebar.getElementsByClassName('show')).forEach(ul => {
@@ -48,7 +64,6 @@ function closeAllSubMenus() {
         ul.previousElementSibling.classList.remove('rotate')
     })
 }
-
 /* Re-open sidebar when switching to mobile view */
 function handleMobileChange(e) {
     if (e.matches) {
@@ -61,7 +76,6 @@ function handleMobileChange(e) {
 if (mobileMq.addEventListener) mobileMq.addEventListener('change', handleMobileChange);
 else mobileMq.addListener(handleMobileChange);
 handleMobileChange(mobileMq);
-
 /* Open dropdown by default in /utau/ pages */
 if (window.location && window.location.pathname && window.location.pathname.indexOf('/utau/') !== -1) {
     const sub = sidebar.querySelector('.sub-menu');
@@ -71,7 +85,6 @@ if (window.location && window.location.pathname && window.location.pathname.inde
         if (btn && btn.classList && btn.classList.contains('dropdown-button')) btn.classList.add('rotate')
     }
 }
-
 /* Remove animation toggle */
 sidebar.addEventListener('transitionend', function (e) {
     if (e.propertyName !== 'width') return
