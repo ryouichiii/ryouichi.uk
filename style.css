@@ -447,6 +447,29 @@ hr {
 #sidebar.close .dropdown-button {
     display: none;
 }
+#sidebar .fumo {
+    width: 50px;
+    position: absolute;
+    bottom: 60px;
+    right: 10px;
+}
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+#sidebar .fumo:hover {
+    animation: shake 300ms linear infinite;
+    animation-play-state: running;
+}
 /* ===== SIDEBAR END ===== */
 
 /* Page Loader */
@@ -540,7 +563,7 @@ hr {
             justify-content: center;
         }
         /* Removes logo, text, credit and dropdown (dropdown button was mean to me)*/
-        ul li hr, ul li a span, ul li div span, ul li:first-child, ul .dropdown-button, ul .sub-menu {
+        ul li hr, ul li a span, ul li div span, ul li:first-child, ul .dropdown-button, ul .sub-menu, ul li div img {
             display: none;
         }
     }
