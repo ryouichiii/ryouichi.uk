@@ -22,9 +22,6 @@ window.addEventListener("load", function () {
     }, 40);
 });
 
-/* Grab current year */
-yearElement.textContent = currentYear;
-
 /* Add listener for theme toggle */
 themeToggle.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
@@ -128,3 +125,6 @@ sidebar.addEventListener('transitionend', function (e) {
     if (e.propertyName !== 'width') return
     sidebar.classList.remove('animate')
 })
+
+/* Grab current year */
+yearElement.textContent = currentYear;
