@@ -217,9 +217,9 @@ button:active {
     border-radius: 1em;
     background-color: var(--background);
     max-width: 700px;
-    height: 150px;
     width: 85%;
     margin: 5px;
+    padding: 0;
     align-items: center;
     overflow: hidden;
     h1 {
@@ -243,28 +243,44 @@ button:active {
 .ust-list-contents {
     display: grid;
     grid-template-columns: 152px auto;
+    grid-template-areas:
+        'img title'
+        'img subtitle'
+        'img subsubtitle'
+        'buttons buttons';
     align-items: center;
-    
 }
 .ust-img {
-    grid-row-start: 1;
-    grid-row-end: 4;
     border-right: 2px solid var(--colour3);
+    height: 150px;
+    grid-area: img;
+    img {
+        height: 150px;
+    }
 }
 .ust-title {
-    margin: 10px;
+    margin-left: 20px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
+    grid-area: title;
 }
 .ust-subtitle {
-    margin-left: 10px;
-    margin-top: -20px;
+    margin-left: 20px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
+    grid-area: subtitle;
+}
+.ust-subsubtitle {
+    margin-left: 20px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    grid-area: subsubtitle;
 }
 .ust-buttons {
     display: grid;
@@ -273,6 +289,7 @@ button:active {
     padding-bottom: 12px;
     gap: 5px;
     border-top: 2px solid var(--colour3);
+    grid-area: buttons;
 }
 
 .index-container {
@@ -887,10 +904,13 @@ button:active {
         grid-template-columns: 75%;
         justify-content: center;
     }
+    .ust-list-contents {
+        grid-template-columns: 102px auto;
+    }
     .ust-list-container h1 {
         font-size: 20px;
     }
-    .ust-subtitle h3 {
+    .ust-subtitle h3, .ust-subsubtitle h3 {
         font-size: 12px;
     }
     .ust-buttons {
@@ -903,6 +923,9 @@ button:active {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+    .ust-img, .ust-img img {
+        height: 100px;
     }
 
     /* ===== MOBILE SIDEBAR ===== */
