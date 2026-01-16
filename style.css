@@ -341,8 +341,9 @@ button:active {
     pointer-events: all;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    overflow-y: scroll;
 }
 .terms-container.agreed {
     opacity: 0;
@@ -360,6 +361,18 @@ button:active {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+    h3 {
+        margin: 0;
+        font-size: 20px;
+        line-height: 30px;
+    }
+    button {
+        padding: 20px;
+        padding-left: 40px;
+        padding-right: 40px;
+        font-size: large;
+    }
 }
 
 /* ===== THEMES ===== */
