@@ -348,14 +348,15 @@ button:active {
     width: 100vw;
     background-color: var(--shadow);
     backdrop-filter: blur(5px);
-    opacity: 0;
+    opacity: 1;
     transition: opacity 300ms ease;
-    pointer-events: none;
+    pointer-events: all;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     overflow-y: scroll;
+    z-index: 1;
 }
 .terms-container.agreed {
     opacity: 0;
