@@ -6,6 +6,10 @@ const currentTheme = localStorage.getItem('theme');
 const body = document.body;
 const terms = document.getElementById('terms');
 const agree = document.getElementById('agree');
+const images = document.querySelectorAll('.comm-container img');
+const closePopup = document.getElementById('close-popup');
+const popupContainer = document.getElementById('popup-container');
+const popupImage = document.getElementById('popup-image');
 
 /* Preloader */
 var loader = document.getElementById("preloader");
@@ -70,10 +74,29 @@ if (window.location && window.location.pathname && window.location.pathname.inde
     }
 }
 
+/* Grab current year */
+yearElement.textContent = currentYear;
+
 /* Close commission terms modal when agreed to */
 agree.addEventListener('click', () => {
     terms.classList.add('agreed');
 });
 
-/* Grab current year */
-yearElement.textContent = currentYear;
+/* Image Preview Pop-up */
+images.forEach((image, i) => {
+    image.addEventListener('click', ()=> {
+        imageOpened(`./images/comm/image${i+1}.webp`);
+    });
+});
+closePopup.addEventListener('click', ()=> {
+    popupContainer.style.opacity = '0';
+    popupContainer.style.pointerEvents = 'none';
+    popupImage.style.opacity = '0';
+    popupImage.src = 0; /* Blanks source, so previous image isnt shown while the selected one loads */
+});
+function imageOpened(pic) {
+    popupImage.style.opacity = '1';
+    popupContainer.style.opacity = '1';
+    popupContainer.style.pointerEvents = 'all';
+    popupImage.src = pic;
+};
