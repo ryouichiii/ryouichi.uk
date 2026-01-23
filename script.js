@@ -10,6 +10,10 @@ const images = document.querySelectorAll('.comm-container img');
 const closePopup = document.getElementById('close-popup');
 const popupContainer = document.getElementById('popup-container');
 const popupImage = document.getElementById('popup-image');
+const cloudLight = "./images/clouds.webp";
+const cloudDark = "./images/clouds-dark.webp";
+const cloudReplace = document.getElementsByClassName('cloudreplace');
+let cloud = cloudLight; // Default theme for clouds
 
 /* Preloader */
 var loader = document.getElementById("preloader");
@@ -25,6 +29,15 @@ window.addEventListener("load", function () {
     }, 40);
 });
 
+/* Cloud animation theme swapping */
+function updateCloud() {
+    cloud = body.classList.contains('dark-mode') ? cloudDark : cloudLight;
+    Array.from(cloudReplace).forEach(element => {
+        element.src = cloud;
+    });
+}
+
+
 /* Add listener for theme toggle */
 themeToggle.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
@@ -34,11 +47,13 @@ themeToggle.addEventListener('click', () => {
     } else {
         localStorage.setItem('theme', '');
     }
+    updateCloud(); // Changes clouds to specific theme
 });
 /* Check for locally saved theme preference */
 if (currentTheme) {
     body.classList.add(currentTheme);
 }
+updateCloud(); // Changes clouds to already saved theme
 
 /* Dropdown function */
 function toggleSubMenu(button) {
